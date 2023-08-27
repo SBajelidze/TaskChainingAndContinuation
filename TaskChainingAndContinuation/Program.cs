@@ -41,6 +41,11 @@ namespace TaskChainExample
 
         public static int[] Task2(int[] inputArray)
         {
+            if (inputArray == null)
+            {
+                throw new ArgumentNullException(nameof(inputArray), "Input array cannot be null.");
+            }
+
             Console.WriteLine("Task 2: Multiplying the array by a random number.");
             Random random = new Random();
             int multiplier = random.Next(2, 6); // Generate a random multiplier between 2 and 5
@@ -52,6 +57,11 @@ namespace TaskChainExample
 
         public static int[] Task3(int[] inputArray)
         {
+            if (inputArray == null)
+            {
+                throw new ArgumentNullException(nameof(inputArray), "Input array cannot be null.");
+            }
+
             Console.WriteLine("Task 3: Sorting the array in ascending order.");
             int[] sortedArray = inputArray.OrderBy(x => x).ToArray();
             PrintArray(sortedArray);
@@ -60,6 +70,11 @@ namespace TaskChainExample
 
         public static double Task4(int[] inputArray)
         {
+            if (inputArray == null)
+            {
+                throw new ArgumentNullException(nameof(inputArray), "Input array cannot be null.");
+            }
+
             Console.WriteLine("Task 4: Calculating the average value.");
             double average = inputArray.Average();
             Console.WriteLine($"Average value: {average}");
