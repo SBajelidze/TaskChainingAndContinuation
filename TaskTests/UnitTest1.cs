@@ -56,5 +56,23 @@ namespace TaskChainExample.Tests
             double actualResult = Program.Task4(inputArray);
             Assert.AreEqual(expectedResult, actualResult);
         }
+
+        [TestMethod]
+        public void Test_Task2_NullArray_ThrowsException()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => Program.Task2(null));
+        }
+
+        [TestMethod]
+        public void Test_Task3_NullArray_ThrowsException()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => Program.Task3(null));
+        }
+
+        [TestMethod]
+        public void Test_Task4_NullArray_ThrowsException()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => Program.Task4(null));
+        }
     }
 }
