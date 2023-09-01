@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable CS1998
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,10 +13,12 @@ namespace TaskChainExample
         {
             try
             {
-                await Task.Run(() => Task1())
-                    .ContinueWith(task1 => Task2(task1.Result))
-                    .ContinueWith(task2 => Task3(task2.Result))
-                    .ContinueWith(task3 => Task4(task3.Result));
+                int[] array = await Task1();
+                int[] multipliedArray = await Task2(array);
+                int[] sortedArray = await Task3(multipliedArray);
+                double average = await Task4(sortedArray);
+
+                Console.WriteLine($"Average value: {average}");
             }
             catch (AggregateException ex)
             {
@@ -26,7 +29,7 @@ namespace TaskChainExample
             }
         }
 
-        public static int[] Task1()
+        public static async Task<int[]> Task1()
         {
             Console.WriteLine("Task 1: Creating an array of 10 random integers.");
             Random random = new Random();
@@ -39,7 +42,7 @@ namespace TaskChainExample
             return array;
         }
 
-        public static int[] Task2(int[] inputArray)
+        public static async Task<int[]> Task2(int[] inputArray)
         {
             if (inputArray == null)
             {
@@ -55,7 +58,7 @@ namespace TaskChainExample
             return multipliedArray;
         }
 
-        public static int[] Task3(int[] inputArray)
+        public static async Task<int[]> Task3(int[] inputArray)
         {
             if (inputArray == null)
             {
@@ -68,7 +71,7 @@ namespace TaskChainExample
             return sortedArray;
         }
 
-        public static double Task4(int[] inputArray)
+        public static async Task<double> Task4(int[] inputArray)
         {
             if (inputArray == null)
             {
@@ -77,7 +80,6 @@ namespace TaskChainExample
 
             Console.WriteLine("Task 4: Calculating the average value.");
             double average = inputArray.Average();
-            Console.WriteLine($"Average value: {average}");
             return average;
         }
 

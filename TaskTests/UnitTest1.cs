@@ -1,4 +1,7 @@
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskChainExample;
@@ -9,9 +12,9 @@ namespace TaskChainExample.Tests
     public class ProgramTests
     {
         [TestMethod]
-        public void Test_Task1()
+        public async Task Test_Task1()
         {
-            int[] result = Program.Task1();
+            int[] result = await Program.Task1();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(10, result.Length);
@@ -21,9 +24,9 @@ namespace TaskChainExample.Tests
         [DataRow(new int[] { 11, 2, 39, 24, 52, 16, 74, 28, 9, 12 })]
         [DataRow(new int[] { 10, 14, 8, 17, 6, 5, 23, 3, 22, 11 })]
         [DataRow(new int[] { 53, 14, 61, 3, 7, 22, 38, 21, 9, 40 })]
-        public void Test_Task2(int[] inputArray)
+        public async Task Test_Task2(int[] inputArray)
         {
-            int[] result = Program.Task2(inputArray);
+            int[] result = await Program.Task2(inputArray);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(inputArray.Length, result.Length);
@@ -36,9 +39,9 @@ namespace TaskChainExample.Tests
         [DataRow(new int[] { 11, 2, 39, 24, 52, 16, 74, 28, 9, 12 })]
         [DataRow(new int[] { 10, 14, 8, 17, 6, 5, 23, 3, 22, 11 })]
         [DataRow(new int[] { 53, 14, 61, 3, 7, 22, 38, 21, 9, 40 })]
-        public void Test_Task3(int[] inputArray)
+        public async Task Test_Task3(int[] inputArray)
         {
-            int[] result = Program.Task3(inputArray);
+            int[] result = await Program.Task3(inputArray);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(inputArray.Length, result.Length);
@@ -49,30 +52,30 @@ namespace TaskChainExample.Tests
         [DataRow(new int[] { 11, 2, 39, 24, 52, 16, 74, 28, 9, 12 })]
         [DataRow(new int[] { 10, 14, 8, 17, 6, 5, 23, 3, 22, 11 })]
         [DataRow(new int[] { 53, 14, 61, 3, 7, 22, 38, 21, 9, 40 })]
-        public void Test_Task4(int[] inputArray)
+        public async Task Test_Task4(int[] inputArray)
         {
             double expectedResult = inputArray.Average();
 
-            double actualResult = Program.Task4(inputArray);
+            double actualResult = await Program.Task4(inputArray);
             Assert.AreEqual(expectedResult, actualResult);
         }
 
         [TestMethod]
-        public void Test_Task2_NullArray_ThrowsException()
+        public async Task Test_Task2_NullArray_ThrowsException()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => Program.Task2(null));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => Program.Task2(null));
         }
 
         [TestMethod]
-        public void Test_Task3_NullArray_ThrowsException()
+        public async Task Test_Task3_NullArray_ThrowsException()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => Program.Task3(null));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => Program.Task3(null));
         }
 
         [TestMethod]
-        public void Test_Task4_NullArray_ThrowsException()
+        public async Task Test_Task4_NullArray_ThrowsException()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => Program.Task4(null));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => Program.Task4(null));
         }
     }
 }
